@@ -1,4 +1,5 @@
 @extends('layouts.auth_app')
+
 @section('title')
     Inicio de Sesión de Administrador
 @endsection
@@ -7,59 +8,63 @@
 <style>
     /* Estilos generales del formulario */
     .card {
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        transition: all 0.2s ease-in-out;
-        border: 1px solid #ddd;
+        border-radius: 10px; /* Bordes más suaves */
+        box-shadow: 0 4px 6px rgba(50,50,93,0.11), 0 1px 3px rgba(0,0,0,0.08); /* Sombra más pronunciada */
+        transition: all 0.3s ease-in-out; /* Transición más suave */
+        border: none; /* Eliminar el borde para un look más limpio */
+        background: #ffffff; /* Fondo blanco para mejor contraste */
     }
     .card-header {
-        background-color: #5a67d8; /* Un color azul más vibrante */
-        color: #fff;
-        font-size: 20px;
-        border-bottom: 1px solid #4c51bf;
-        border-top-left-radius: 7px;
-        border-top-right-radius: 7px;
+        background-color: #667eea; /* Un color azul ligeramente diferente */
+        color: #ffffff;
+        font-size: 22px; /* Ligeramente más grande para más énfasis */
+        padding: 16px 24px; /* Ajuste de padding para un mejor aspecto */
+        border-bottom: none; /* Eliminar el borde inferior para un look más limpio */
+        border-top-left-radius: 10px; /* Asegurar consistencia en bordes redondeados */
+        border-top-right-radius: 10px;
     }
     .btn-primary {
-        background-color: #4c51bf;
+        background-color: #5a67d8; /* Ajuste del color principal */
         border: none;
-        border-radius: 20px; /* Bordes más redondeados */
-        padding: 10px 24px;
-        font-size: 16px;
-        transition: background-color 0.2s;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        border-radius: 25px; /* Bordes aún más redondeados para botones */
+        padding: 12px 30px; /* Ajuste de padding para un botón más prominente */
+        font-size: 18px; /* Tamaño de fuente más grande para mejorar legibilidad */
+        transition: background-color 0.2s, transform 0.2s; /* Añadir efecto de transformación */
+        box-shadow: 0 4px 6px rgba(50,50,93,0.11), 0 1px 3px rgba(0,0,0,0.08); /* Sombra consistente con la tarjeta */
     }
     .btn-primary:hover {
-        background-color: #434190; /* Un poco más oscuro al pasar el mouse */
+        background-color: #434190; /* Oscurecer al pasar el mouse */
+        transform: translateY(-2px); /* Ligero efecto de elevación al pasar el mouse */
     }
     .form-control {
-        border-radius: 20px; /* Bordes redondeados para los inputs */
-        border: 1px solid #ddd;
-        transition: border-color 0.2s, box-shadow 0.2s;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.05) inset;
+        border-radius: 25px; /* Consistencia en bordes redondeados */
+        border: 1px solid #e2e8f0; /* Color de borde más suave */
+        transition: border-color 0.2s, box-shadow 0.2s; /* Transición suave para enfoque */
+        box-shadow: none; /* Eliminar sombra interna para un look más limpio */
     }
     .form-control:focus {
-        border-color: #5a67d8; /* Cambio de color en el foco */
-        box-shadow: 0 0 8px rgba(90, 103, 216, 0.2);
+        border-color: #667eea; /* Cambio de color en el foco */
+        box-shadow: 0 0 0 1px rgba(102,126,234,0.5); /* Sombra de foco suave y coherente */
     }
     .custom-control-input:checked ~ .custom-control-label::before {
-        background-color: #4c51bf;
-        border-color: #4c51bf;
+        background-color: #5a67d8; /* Consistente con el color principal */
+        border-color: #5a67d8;
     }
     .alert-danger {
-        background-color: #fbdede;
-        border-color: #f8d7da;
-        color: #842029;
-        padding: 10px;
-        border-radius: 8px;
+        background-color: #fef2f2; /* Fondo más suave para el alerta */
+        border-color: #fed7d7; /* Borde coherente con el fondo */
+        color: #e53e3e; /* Color de texto que contraste bien */
+        padding: 12px; /* Ajuste de padding */
+        border-radius: 10px; /* Bordes redondeados */
     }
     .text-small {
-        font-size: 0.875em;
+        font-size: 0.875em; /* Mantener tamaño de fuente pequeño */
     }
     .form-group {
-        margin-bottom: 1rem;
+        margin-bottom: 1.25rem; /* Ajuste de margen para mejor espaciado */
     }
 </style>
+
 <div class="card card-primary">
     <div class="card-header"><h4>Inicio de Sesión</h4></div>
 
@@ -76,6 +81,7 @@
                     </ul>
                 </div>
             @endif
+
             <div class="form-group">
                 <label for="email">Correo Electrónico</label>
                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" placeholder="Ingresa tu correo" tabindex="1" value="{{ old('email', Cookie::get('email')) }}" autofocus required>
@@ -88,11 +94,9 @@
 
             <div class="form-group">
                 <label for="password" class="control-label">Contraseña</label>
-                <div class="d-flex justify-content-between">
-                    <a href="{{ route('password.request') }}" class="text-small">
-                        ¿Olvidaste tu contraseña?
-                    </a>
-                </div>
+                <a href="{{ route('password.request') }}" class="text-small">
+                    ¿Olvidaste tu contraseña?
+                </a>
                 <input id="password" type="password" placeholder="Ingresa tu contraseña" class="form-control{{ $errors->has('password') ? ' is-invalid': '' }}" name="password" tabindex="2" required>
                 @if ($errors->has('password'))
                     <div class="invalid-feedback">
@@ -116,4 +120,5 @@
         </form>
     </div>
 </div>
+
 @endsection
